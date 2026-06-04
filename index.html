@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WM-Tippspiel für die Schulklasse</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Schulklasse · ca. 20 Personen</p>
+        <h1>WM-Tippspiel</h1>
+        <p class="hero__text">
+          Namen eintragen, Spielpaarungen anlegen und Tipps der Kinder zentral durch die Lehrerin erfassen.
+          Alles bleibt lokal in diesem Browser gespeichert.
+        </p>
+      </div>
+      <div class="hero__card" aria-label="Punkte-Regeln">
+        <strong>Punkte</strong>
+        <span>3: exaktes Ergebnis</span>
+        <span>2: richtige Tordifferenz</span>
+        <span>1: richtige Tendenz</span>
+      </div>
+    </header>
+
+    <main class="app" id="app">
+      <section class="panel" aria-labelledby="players-title">
+        <div class="panel__header">
+          <div>
+            <h2 id="players-title">1. Kinder / Teilnehmende</h2>
+            <p>Namen manuell eingeben. Ein Name pro Zeile ist auch möglich.</p>
+          </div>
+          <span class="counter"><span id="player-count">0</span> Personen</span>
+        </div>
+
+        <form class="input-row" id="player-form">
+          <label class="sr-only" for="player-name">Name</label>
+          <textarea id="player-name" rows="2" placeholder="z. B. Mia, Noah oder mehrere Namen untereinander"></textarea>
+          <button type="submit">Namen hinzufügen</button>
+        </form>
+        <ul class="pill-list" id="player-list" aria-live="polite"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="matches-title">
+        <div class="panel__header">
+          <div>
+            <h2 id="matches-title">2. Spiele</h2>
+            <p>Spielpaarungen und echte Ergebnisse pflegen.</p>
+          </div>
+          <button class="secondary" type="button" id="add-demo-data">Beispieldaten</button>
+        </div>
+
+        <form class="match-form" id="match-form">
+          <label>
+            Team 1
+            <input id="home-team" required placeholder="Deutschland" />
+          </label>
+          <label>
+            Team 2
+            <input id="away-team" required placeholder="Brasilien" />
+          </label>
+          <label>
+            Ergebnis Team 1
+            <input id="home-score" type="number" min="0" inputmode="numeric" placeholder="-" />
+          </label>
+          <label>
+            Ergebnis Team 2
+            <input id="away-score" type="number" min="0" inputmode="numeric" placeholder="-" />
+          </label>
+          <button type="submit">Spiel hinzufügen</button>
+        </form>
+        <div class="match-list" id="match-list"></div>
+      </section>
+
+      <section class="panel panel--wide" aria-labelledby="tips-title">
+        <div class="panel__header">
+          <div>
+            <h2 id="tips-title">3. Tipps eintragen</h2>
+            <p>Die Lehrerin wählt ein Kind und trägt die Tipps für alle Spiele ein.</p>
+          </div>
+          <label class="select-label">
+            Kind auswählen
+            <select id="active-player"></select>
+          </label>
+        </div>
+        <div class="tips-grid" id="tips-grid"></div>
+      </section>
+
+      <section class="panel panel--wide" aria-labelledby="ranking-title">
+        <div class="panel__header">
+          <div>
+            <h2 id="ranking-title">Rangliste</h2>
+            <p>Die Punkte werden automatisch berechnet, sobald Ergebnisse eingetragen sind.</p>
+          </div>
+          <div class="actions">
+            <button class="secondary" type="button" id="export-data">Daten exportieren</button>
+            <label class="secondary file-button" for="import-data">Daten importieren</label>
+            <input class="sr-only" id="import-data" type="file" accept="application/json" />
+            <button class="danger" type="button" id="reset-data">Alles löschen</button>
+          </div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Platz</th>
+                <th>Name</th>
+                <th>Punkte</th>
+                <th>Getippt</th>
+              </tr>
+            </thead>
+            <tbody id="ranking-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <template id="empty-state-template">
+      <div class="empty-state">
+        <strong>Noch nichts eingetragen</strong>
+        <span>Füge zuerst Namen und Spiele hinzu.</span>
+      </div>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
